@@ -1,0 +1,24 @@
+header {
+    width: 80vw;
+    max-width: 500px;
+    margin: auto;
+    padding: 10px 10px;
+    background-color: rgb(20, 75, 85);
+    color: #FAFAFA;
+    text-align: center
+}
+
+.box {
+    width: 80vw;
+    max-width: 500px;
+    margin: 10px auto;
+    border: 1px solid black;
+    padding: 20px 10px;
+    background-color:#FAFAFA;
+    
+}
+
+.error {
+    color: darkred;
+    font-style: italic;
+}

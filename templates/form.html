@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class='box'>
+    <form method = 'POST'>
+        <table>
+            <tbody>
+                <tr>
+                    <td>    <lable for="username"> Username*: </lable> </td>   
+                    <td>    <input type="text" name='username' />  </td>
+                    <td>    <span class = "error">{{ username_error }}</span></td>
+                </tr>
+                <tr>
+                    <td>    <lable for="password"> Password*: </lable>   </td>
+                    <td>    <input type="password" name='password' />   </td>
+                    <td>    <span class = "error">{{ password_error }}</span></td>
+                </tr>
+                <tr>
+                    <td>    <lable for="verifypassword"> Verify Password*:   </lable>   </td>
+                    <td>    <input type="password" name='verifypassword' />   </td>
+                    <td>    <span class = "error">{{ password_verify_error }}</span></td>
+                </tr>
+                <tr>
+                    <td>    <lable for="email"> Email (optional): </lable>   </td>
+                    <td>    <input type="text" name='email' />   </td>
+                    <td>    <span class = "error">{{ email_error }}</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+{% endblock %}
