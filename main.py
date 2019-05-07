@@ -1,28 +1,53 @@
-from flask import Flask, request, render_template, url_for
+from flask import Flask, request, render_template, url_for, flash, redirect
+import re
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
+app.secret_key = 'a_super_secret_key!'
 
 @app.route('/', methods = ['GET', 'POST'])
 def index():
+    errors = 0
+    username=''
+    email=''
     if request.method == 'POST':
-        errors = {
-            'username':'',
-            'password':'',
-            'verify':''
-        }
-        username = request.form['username']
+        username = request.form['username'].strip()
         password = request.form['password']
-        verify = request.form['verifypassword']
-        email = request.form['email']
+        verifypassword = request.form['verifypassword']
+        email = request.form['email'].strip()
 
-        # verify 1: all required fields are provided
-        for field in [username,password,verify]:
-            if not field:
-                errors[field] = 1
-        # verify 2: username and password length
+        # validation 1: Username and password are valid. i.e. 3-20 characters long
+        for field,value in [('username',username),('password',password)]:
+            if not 3 <= len(value)<= 20:
+                flash('Invalid {}'.format(field),field)
+                errors += 1
+                
+        # validation 2: password verification
+        if verifypassword != password:
+            flash("Passwords don't match",'verifypassword')
+            errors += 1
+            
+        # validation 3: email
+        email_pattern = '[^. @]+@+[^. @]+.+[^. @]'
+        if email and not (3 <= len(email) <= 20 and re.match(email_pattern,email)):
+            flash("Invalid email address",'email')
+            errors += 1
+            
 
+        if errors > 0:
+            return render_template('form.html',
+                            username = username,
+                            email = email
+                           )
+        else:
+            return render_template('welcome.html',
+                            username = username
+                           )
 
-    return render_template('form.html')
+    else:
+        return render_template('form.html',
+                            username = username,
+                            email = email
+                           )
 
 app.run()

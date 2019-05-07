@@ -7,26 +7,53 @@
             <tbody>
                 <tr>
                     <td>    <lable for="username"> Username*: </lable> </td>   
-                    <td>    <input type="text" name='username' />  </td>
-                    <td>    <span class = "error">{{ username_error }}</span></td>
+                    <td>    <input type="text" name='username' value ='{{username}}' />  </td>
+                    <td>
+                            {% with A = get_flashed_messages(category_filter=['username']) %}    
+                                {% for message in A %}
+                                    <span class = "error">{{ message }}</span>
+                                {% endfor %}
+                            {% endwith%}
+                    </td>
                 </tr>
                 <tr>
                     <td>    <lable for="password"> Password*: </lable>   </td>
                     <td>    <input type="password" name='password' />   </td>
-                    <td>    <span class = "error">{{ password_error }}</span></td>
+                    <td>    
+                            {% with B = get_flashed_messages(category_filter=['password']) %}    
+                                {% for message in B %}
+                                    <span class = "error">{{ message }}</span>
+                                {% endfor %}
+                            {% endwith%}
+                    </td>
                 </tr>
                 <tr>
                     <td>    <lable for="verifypassword"> Verify Password*:   </lable>   </td>
                     <td>    <input type="password" name='verifypassword' />   </td>
-                    <td>    <span class = "error">{{ password_verify_error }}</span></td>
+                    <td>    
+                            {% with C = get_flashed_messages(category_filter=['verifypassword']) %}    
+                                {% for message in C %}
+                                    <span class = "error">{{ message }}</span>
+                                {% endfor %}
+                            {% endwith%}
+                    </td>
                 </tr>
                 <tr>
                     <td>    <lable for="email"> Email (optional): </lable>   </td>
-                    <td>    <input type="text" name='email' />   </td>
-                    <td>    <span class = "error">{{ email_error }}</span></td>
+                    <td>    <input type="text" name='email' value = '{{email}}' />   </td>
+                    <td>    
+                            {% with D = get_flashed_messages(category_filter=['email']) %}    
+                                {% for message in D %}
+                                    <span class = "error">{{ message }}</span>
+                                {% endfor %}
+                            {% endwith%}
+                    </td>
                 </tr>
             </tbody>
         </table>
+        <div class = 'submit_button'>
+            <input  type='submit' value='Sign Up!' />
+        </div>
     </form>
 </div>
 {% endblock %}
